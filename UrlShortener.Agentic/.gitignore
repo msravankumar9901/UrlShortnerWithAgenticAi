@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+TestResults/
+runs/
+data/*.json
+artifacts/*
+!artifacts/.gitkeep
+appsettings.*.local.json
+.env
+*.log

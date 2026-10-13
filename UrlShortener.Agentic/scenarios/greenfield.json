@@ -1,0 +1,17 @@
+{
+  "id": "greenfield",
+  "name": "Greenfield URL shortener",
+  "scenarioType": "greenfield",
+  "requirement": "Build a URL shortener service with link creation (shorten), redirect, and click analytics. Include URL validation, collision-safe codes, and a health endpoint.",
+  "stages": [
+    { "id": "baseline", "name": "Governance baseline", "agent": "BaselineAgent", "dependsOn": [], "autonomy": "Auto", "allowedWritePaths": ["workspace/baseline"], "risk": "low" },
+    { "id": "requirements", "name": "Requirements", "agent": "RequirementsAgent", "dependsOn": [], "autonomy": "AutoWithReview", "approvalTiming": "before", "maxRetries": 2, "allowedWritePaths": ["workspace/requirements"], "risk": "medium" },
+    { "id": "architecture", "name": "Architecture", "agent": "ArchitectAgent", "dependsOn": ["requirements"], "autonomy": "HumanRequired", "approvalTiming": "before", "maxRetries": 1, "allowedWritePaths": ["workspace/architecture"], "risk": "high" },
+    { "id": "implementation", "name": "Implementation", "agent": "DeveloperAgent", "dependsOn": ["architecture"], "autonomy": "AutoWithReview", "approvalTiming": "before", "maxRetries": 2, "rollback": true, "allowedWritePaths": ["workspace/src"], "risk": "high" },
+    { "id": "testing", "name": "Testing", "agent": "TestAgent", "dependsOn": ["implementation"], "autonomy": "Auto", "maxRetries": 1, "allowedWritePaths": ["workspace/tests"], "risk": "low" },
+    { "id": "security", "name": "Security", "agent": "SecurityAgent", "dependsOn": ["implementation"], "autonomy": "Auto", "maxRetries": 0, "readOnly": true, "risk": "medium" },
+    { "id": "review", "name": "Review", "agent": "ReviewAgent", "dependsOn": ["implementation"], "autonomy": "Auto", "maxRetries": 0, "readOnly": true, "risk": "medium" },
+    { "id": "docs", "name": "Documentation", "agent": "DocsAgent", "dependsOn": ["implementation"], "autonomy": "Auto", "maxRetries": 1, "allowedWritePaths": ["workspace/docs"], "risk": "low" },
+    { "id": "release", "name": "Release", "agent": "ReleaseAgent", "dependsOn": ["testing", "security", "review", "docs"], "autonomy": "HumanRequired", "approvalTiming": "after", "maxRetries": 0, "allowedWritePaths": ["workspace/release"], "risk": "high" }
+  ]
+}
